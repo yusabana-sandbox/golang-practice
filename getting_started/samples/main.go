@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter4"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter5"
+	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter6"
 	"os"
 	"strings"
 )
@@ -24,11 +25,9 @@ func init() {
 
 func main() {
 	fmt.Println(os.Args)
-
 	// parseで実際に設定される
 	flag.Parse()
 	fmt.Println(strings.Repeat(*msg, n))
-
 	// flag.Parse()しないとflag.Args()でとれない
 	// https://qiita.com/178inaba/items/7f412a1acb435a202f5c
 	fmt.Println(flag.Args())
@@ -38,4 +37,8 @@ func main() {
 
 	fmt.Println("CHAPTER 5555555555")
 	chapter5.DoArgs()
+
+	fmt.Println("CHAPTER 6666666666")
+	chapter6.DoSamples()
+
 }
