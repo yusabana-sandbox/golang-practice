@@ -6,6 +6,7 @@ import (
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter4"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter5"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter6"
+	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter7"
 	"os"
 	"strings"
 )
@@ -41,4 +42,6 @@ func main() {
 	fmt.Println("CHAPTER 6666666666")
 	chapter6.DoSamples()
 
+	fmt.Println("CHAPTER 7777777777")
+	chapter7.DoSamples()
 }
