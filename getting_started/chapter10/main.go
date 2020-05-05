@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"time"
@@ -34,6 +36,37 @@ func handlerOmikuji(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func handleMyJson(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	v := struct {
+		Name string `json:"N"` // 個々のタグで指定したキーでjsonに変換される
+		Msg string `json:"msg"`
+	}{
+		Name: "Hoge",
+		Msg: "hello",
+	}
+
+	// encodeするとレスポンスがJSONになる?!
+	if err := json.NewEncoder(w).Encode(v); err != nil {
+		log.Println("Error:", err)
+	}
+}
+
+func handleReq(w http.ResponseWriter, r *http.Request) {
+	val := r.FormValue("p")
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	v := struct {
+		Msg string `json:"msg"`
+	}{
+		Msg: fmt.Sprintf("%sさんの運勢は「大吉」です", val),
+	}
+
+	if err := json.NewEncoder(w).Encode(v); err != nil {
+		log.Println("Erro:", err)
+	}
+}
+
 func init() {
 	// 乱数の初期化
 	rand.Seed(time.Now().UnixNano())
@@ -48,8 +81,14 @@ func main() {
 	// おみくじ
 	http.HandleFunc("/omikuji", handlerOmikuji)
 
+	// JSONサンプル
+	http.HandleFunc("/myjson", handleMyJson)
+	http.HandleFunc("/req", handleReq)
+
+
 	http.ListenAndServe(":8080", nil)
 }
+
 
 
 
