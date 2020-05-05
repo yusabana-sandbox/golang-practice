@@ -47,5 +47,7 @@ func main() {
 	chapter7.DoSamples()
 
 	fmt.Println("CHAPTER 99999999999")
-	chapter9.DoPrompt()
+	// promptは実行が止まってしまうので一旦無効に
+	//chapter9.DoPrompt()
+	chapter9.DoLock()
 }
