@@ -87,5 +87,10 @@ func main() {
 	// JSONサンプル
 	http.HandleFunc("/myjson", handleMyJson)
 
+	http.HandleFunc("/handle_test", handleTest)
 	http.ListenAndServe(":8080", nil)
+}
+
+func handleTest(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello, net/http!!")
 }
