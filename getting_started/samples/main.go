@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter11"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter4"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter5"
 	"github.com/yusabana-sandbox/golang-practice/getting_started/samples/chapter6"
@@ -50,4 +51,7 @@ func main() {
 	// promptは実行が止まってしまうので一旦無効に
 	//chapter9.DoPrompt()
 	chapter9.DoLock()
+
+	fmt.Println("CHAPTER 11")
+	chapter11.DoSamples()
 }
