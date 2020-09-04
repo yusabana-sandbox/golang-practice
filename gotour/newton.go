@@ -1,4 +1,4 @@
-package newton
+package main
 
 // Sqrt ok
 func Sqrt(x float64) float64 {
