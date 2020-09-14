@@ -25,9 +25,9 @@ func Do() {
 	}
 	fmt.Println(div2)
 
-	// 関数リテラル
+	// 関数リテラル(即時関数)
 	func(i, j int) { fmt.Println(i + j) }(3, 5)
-	// 関数リテラルの変数代入
+	// 関数リテラルの変数代入(Rubyのlambdaのようなものsumという名前で作る)
 	var sum func(i, j int) = func(i, j int) {
 		fmt.Println(i + j)
 	}
@@ -53,6 +53,21 @@ func Do() {
 
 	// sumFuncは可変長引数
 	fmt.Println(sumFunc(1, 2, 3, 4, 5))
+
+	// マップ
+	mapFunc()
+
+	// ポインタ
+	n := 3
+	fmt.Println("noPointa実行前, pointa実行前", n)
+	noPointa(n) // この場合は値を渡しているので値がコピーされて渡される
+	fmt.Println("noPointa実行後, pointa実行前", n)
+	pointa(&n) // &をつけて呼び出しにアドレスを渡す
+	fmt.Println("noPointa実行後, pointa実行後", n) // ポインタの参照を書き換えているのでnの値も変わる
+
+	// defer
+	defer fmt.Println("Deffer1で最後の処理")
+	defer fmt.Println("Deffer2で最後の処理")
 }
 
 func multipleReturn() (string, int, int) {
@@ -121,4 +136,38 @@ func sumFunc(nums ...int) (result int) {
 		result += n
 	}
 	return
+}
+
+// マップ
+func mapFunc() {
+	var month map[int]string = map[int]string{}
+	month[1] = "January"
+	month[2] = "February"
+
+	fmt.Println(month)
+
+	// 2つ目の戻り値は指定したキーがマップに格納されているかをboolで返す
+	m, ok := month[2]
+	if ok {
+		fmt.Println("monthはOKです", m)
+	}
+
+	// rangeを使うとfor文でkey, valueを取れる
+	for key, value := range month {
+		fmt.Printf("%d -> %s\n", key, value)
+	}
+
+	// キーが1のデータを削除
+	delete(month, 1)
+	fmt.Println(month)
+}
+
+// ポインタのチェック
+func noPointa(num int) {
+	num = 50
+	fmt.Println("noPointa関数内:", num)
+}
+func pointa(num *int) {
+	*num = 50 // ポインタが指している変数に値をセットする
+	fmt.Println("pointa関数内:", *num) // ポインタが指している変数を表示
 }
