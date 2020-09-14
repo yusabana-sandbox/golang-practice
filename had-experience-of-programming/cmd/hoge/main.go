@@ -12,7 +12,8 @@ func main() {
 	a, b, _ := multipleReturn()
 	fmt.Println(a, b)
 
-	div1, err := div(4, 0)
+	div1, err := div(4, 2)
+	//div1, err := div(4, 0) // errorになる
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,12 +25,22 @@ func multipleReturn() (string, int, int) {
 	return "hoge", 3, 4
 }
 
-
-func div(i float32, j int) (int, error) {
+// エラーの発生のサンプル
+func div(i, j int) (int, error) {
 	if j == 0 {
 		// 自作のエラーを返す
 		return 0, errors.New("divided by zero")
 	}
 
-	return int(i) / j, nil
+	return i / j, nil
+}
+
+// 名前付き戻り値
+func divNamed(i,j int) (result int, err error) {
+	if j==0 {
+		err = errors.New("divided by zero of divNamed")
+		return
+	}
+	result = i / j
+	return
 }
