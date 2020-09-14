@@ -6,7 +6,6 @@ func main() {
 	fmt.Println("HOGEですよねー")
 
 	a, b, _ := multipleReturn()
-
 	fmt.Println(a, b)
 }
 
