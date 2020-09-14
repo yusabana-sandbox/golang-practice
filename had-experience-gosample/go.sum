@@ -1,6 +1,9 @@
+github.com/yusabana-sandbox/golang-practice v0.0.0-20200914065534-ad894fc0aef2 h1:zSGXx/MoZJgxv+GcdNl9AbNCC8/hKmWJDeQojuQ+mZM=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911023546-adcb020a98ec h1:Zx7zDoxqRp9usRjOqmOYR1ewuKiWuC1HbVvnx+MRkU4=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911023546-adcb020a98ec/go.mod h1:IXdrAnSx0mAdkGWj81cKLg/xnFCcZXv9iW71mojr9jo=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911030056-25c2154e7884 h1:xHxWW95SwjPgKXm8rWT3sKXuNkSwAKrqjTCtHOfLl2I=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911030056-25c2154e7884/go.mod h1:IXdrAnSx0mAdkGWj81cKLg/xnFCcZXv9iW71mojr9jo=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911031719-75e585e70917 h1:YlO8YoN7Z57z4ZiUcCgOUsShwm5RKtEiejFn8EpEfRA=
 github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200911031719-75e585e70917/go.mod h1:IXdrAnSx0mAdkGWj81cKLg/xnFCcZXv9iW71mojr9jo=
+github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200914065534-ad894fc0aef2 h1:5lAlTGBN7WXcQ0QSpU46sWV6ITnpWFXA6w2vfSQYKJg=
+github.com/yusabana-sandbox/golang-practice/had-experience-of-programming v0.0.0-20200914065534-ad894fc0aef2/go.mod h1:IXdrAnSx0mAdkGWj81cKLg/xnFCcZXv9iW71mojr9jo=
