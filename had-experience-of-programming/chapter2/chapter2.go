@@ -7,7 +7,7 @@ import (
 )
 
 func Do() {
-	fmt.Println("HOGEですよねー")
+	fmt.Println("chapter2始まるよー")
 
 	a, b, _ := multipleReturn()
 	fmt.Println(a, b)
