@@ -21,6 +21,12 @@ func Do() {
 	doTypeAssertion("aiueo")
 	doTypeAssertion(1234)
 	doTypeAssertion(false)
+
+	// TypeSwitch
+	doTypeSwitch("aaa")                // value is string by TypeSwitch: aaa
+	doTypeSwitch(123)                  //value is int by TypeSwitch: 123
+	doTypeSwitch(true)                 //Value is another by TypeSwitch default
+	doTypeSwitch(NewTask(123, "hello")) // value is Stringer by TypeSwitch: 123) hoge, DONE: false
 }
 
 // 型がintだからどちらでも通るというパターン
@@ -230,4 +236,20 @@ func doTypeAssertion(value interface{}) {
 	} else {
 		fmt.Printf("value is not string: %v\n", value)
 	}
+}
+
+// Type Switch
+// レシーバー.(type) でswitchと組み合わせる
+func doTypeSwitch(value interface{}) {
+	switch v := value.(type) {
+	case string:
+		fmt.Printf("value is string by TypeSwitch: %s\n", v)
+	case int:
+		fmt.Printf("value is int by TypeSwitch: %d\n", v)
+	case Stringer:
+		fmt.Printf("value is Stringer by TypeSwitch: %s\n", v)
+	default:
+		fmt.Println("Value is another by TypeSwitch default")
+	}
+
 }
