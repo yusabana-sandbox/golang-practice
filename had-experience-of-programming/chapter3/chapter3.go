@@ -98,8 +98,8 @@ func doStructure() {
 	// メソッド
 	fmt.Printf("%s\n", task)
 
-	fmt.Println(task) // &{3 aaaaaa false
-	task.Finish()     // Finish()はレシーバーのポインタに対する操作
+	fmt.Println(task) // &{3 aaaaaa false}
+	task.Finish()     // Finish()はレシーバーのポインタに対する操作なので呼び出し側recieverも変わる
 	fmt.Println(task) // &{3 aaaaaa true}
 }
 
