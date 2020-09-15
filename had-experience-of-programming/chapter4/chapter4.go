@@ -23,6 +23,8 @@ func Do() {
 	doUnMarshal()
 
 	doFiles()
+
+	doJsonFiles()
 }
 
 func doMarshal() {
@@ -84,6 +86,7 @@ func doFiles() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer readFile.Close()
 
 	// 12byte格納可能なスライスを用意する
 	// 12byteよりオーバーする分は取得できない
@@ -97,3 +100,53 @@ func doFiles() {
 	fmt.Println(string(readMessage))
 }
 
+func doJsonFiles() {
+	person := &Person{
+		Id:      1,
+		Name:    "Goper",
+		Email:   "gopher@example.org",
+		Age:     5,
+		Address: "",
+		memo:    "golang lover",
+	}
+
+	// ここからは
+	// JSONの書き込み
+	// ファイルを開く
+	file, err := os.Create("./person.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	// エンコーダーの取得
+	encoder := json.NewEncoder(file)
+
+	// ファイルへの書き出し(Encodeを使う)
+	err = encoder.Encode(person)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// ここからは
+	// JSONの読み込み
+	readFile, err := os.Open("./person.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer readFile.Close()
+
+	// データを読み込む変数
+	var readPerson Person
+
+	// デコーダの取得
+	decoder := json.NewDecoder(readFile)
+	// JSONデコードしたデータの書き込み(Decodeを使う)
+	err = decoder.Decode(&readPerson)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 読みだした結果の表示
+	fmt.Println(readPerson)
+}
