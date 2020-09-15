@@ -14,7 +14,13 @@ func Do() {
 	// 構造体
 	doStructure()
 
+	// Cast
 	doCast()
+
+	// Type Assertion 型の検査
+	doTypeAssertion("aiueo")
+	doTypeAssertion(1234)
+	doTypeAssertion(false)
 }
 
 // 型がintだからどちらでも通るというパターン
@@ -208,4 +214,20 @@ func doCast() {
 	// Cannot convert expression of type 'string' to type 'int'
 	// cast出来ないときはpanicが発生する
 	//var i int = int(s)
+}
+
+// Type Assertion
+// レシーバー.(string) のような感じで型を検査する
+// 第1戻り値は判定が成功した場合その方に変換された値が返る
+// 第2戻り値は判定が成功したかどうかの真偽値が返る
+//   第2戻り値を取らなかったら判定失敗時はpanicとなる
+func doTypeAssertion(value interface{}) {
+	s, ok := value.(string)
+
+	// 第2戻り値を取っているのでassertionに失敗してもpanicは起こらず条件判定できる
+	if ok {
+		fmt.Printf("value is string: %s\n", s)
+	} else {
+		fmt.Printf("value is not string: %v\n", value)
+	}
 }
