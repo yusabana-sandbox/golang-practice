@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 )
 
 type Person struct {
@@ -21,6 +22,7 @@ func Do() {
 	doMarshal()
 	doUnMarshal()
 
+	doFiles()
 }
 
 func doMarshal() {
@@ -52,3 +54,46 @@ func doUnMarshal() {
 	}
 	fmt.Println(person) // => {1 Gopher 5 }
 }
+
+func doFiles() {
+	// ファイル生成
+	file, err := os.Create("./file.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	// プログラムが終わったらファイルを閉じる
+	defer file.Close()
+
+	// defer でプログラムが終わったらファイルを閉じる
+	// 書き込むデータを[]byteで利用する
+	message := []byte("hello world!!!\n")
+
+	// Writeで書き込む
+	_, err = file.Write(message)
+	// WriteStringというのもある
+	//_, err = file.WriteString("hello world!!\n")
+	// fmt.Fprintで直接fileに書き込める
+	//_, err = fmt.Fprint(file, "hello world\n")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	readFile, err := os.Open("./file.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 12byte格納可能なスライスを用意する
+	// 12byteよりオーバーする分は取得できない
+	readMessage := make([]byte, 10)
+
+	_, err = readFile.Read(readMessage)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(readMessage))
+}
+
