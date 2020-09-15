@@ -3,6 +3,7 @@ package chapter4
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -25,6 +26,8 @@ func Do() {
 	doFiles()
 
 	doJsonFiles()
+
+	doIoUtil()
 }
 
 func doMarshal() {
@@ -88,8 +91,10 @@ func doFiles() {
 	}
 	defer readFile.Close()
 
-	// 12byte格納可能なスライスを用意する
-	// 12byteよりオーバーする分は取得できない
+	// ここが重要
+	// 10byte格納可能なスライスを用意する
+	// []byte を必要な長さを用意してあげないといけない
+	// 10byteよりオーバーする分は取得できない
 	readMessage := make([]byte, 10)
 
 	_, err = readFile.Read(readMessage)
@@ -149,4 +154,23 @@ func doJsonFiles() {
 
 	// 読みだした結果の表示
 	fmt.Println(readPerson)
+}
+
+func doIoUtil() {
+	// ReadAll
+	file, _ := os.Open("./file.txt")
+	message, _ := ioutil.ReadAll(file)
+	fmt.Println(string(message))
+	// Printfだと[]byteもそのまま出力できる
+	//fmt.Printf("%s\n", message)
+
+	// WriteFile
+	message = []byte("hello world???")
+	// permを0777としているが実際作成されるのは755のファイルumaskが効いているのかな
+	ioutil.WriteFile("./file_io_util.txt", message, 0777)
+
+	// ReadFile
+	message, _ = ioutil.ReadFile("./file_io_util.txt")
+	fmt.Println(string(message))
+
 }
