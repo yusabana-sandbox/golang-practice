@@ -3,5 +3,5 @@ package yusabana
 import "fmt"
 
 func Hoge()  {
-	fmt.Println("ほげげげ - By Yusabana")
+	fmt.Println("ほげげげパッケージ - By Yusabana")
 }
