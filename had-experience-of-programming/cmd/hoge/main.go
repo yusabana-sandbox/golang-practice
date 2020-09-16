@@ -11,5 +11,5 @@ func main() {
 	chapter3.Do()
 	chapter4.Do()
 	// serverとして起動するので適宜利用するときだけOnにする
-	chapter4.DoNetHttp()
+	//chapter4.DoNetHttp()
 }
