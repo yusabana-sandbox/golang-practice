@@ -75,6 +75,7 @@ type Task2 struct {
 	done   bool
 	//User   *User // Userを定義する場合はこのようにする.埋め込みじゃなくてプロパティとして設定
 	*User // *Userとすることで埋め込む Task2にUserが埋め込まれる. Userのプロパティに直接アクセスできる
+	//User このように*を最初に入れなくてもいける
 }
 
 type Stringer interface {

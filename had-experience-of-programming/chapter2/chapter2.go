@@ -62,7 +62,7 @@ func Do() {
 	fmt.Println("noPointa実行前, pointa実行前", n)
 	noPointa(n) // この場合は値を渡しているので値がコピーされて渡される
 	fmt.Println("noPointa実行後, pointa実行前", n)
-	pointa(&n) // &をつけて呼び出しにアドレスを渡す
+	pointa(&n)                               // &をつけて呼び出しにアドレスを渡す
 	fmt.Println("noPointa実行後, pointa実行後", n) // ポインタの参照を書き換えているのでnの値も変わる
 
 	// defer
@@ -99,11 +99,13 @@ func arr() {
 	fmt.Println("配列について")
 	// どちらも同じ型
 	arr1 := [4]string{"A", "B", "c", "d"}
-	// この書き方は可変長のものではない(スライスではない)
-	arr2 := [...]string{"A", "B", "c", "d"}
-
 	sampleArr(arr1)
+	// ...を使って長さを省略できる。この書き方は可変長のものではない(スライスではない)
+	arr2 := [...]string{"A", "B", "c", "d"}
 	sampleArr(arr2)
+	// インデックスを指定して値を割り当てる
+	arr3 := [5]int{1: 100, 3: 50, 4: 20}
+	fmt.Println(arr3) // => [0 100 0 50 20]
 }
 
 // 型引数に配列自体が渡されているのでコピーが渡されている
@@ -117,6 +119,9 @@ func slice() {
 	fmt.Println(s)
 	s = append(s, "PIYO")
 	fmt.Println(s)
+
+	var a []int // スライスの初期データはnil(ゼロ値で埋められるわけではない
+	fmt.Printf("%#v\n", a)
 }
 
 func rng() {
@@ -140,10 +145,13 @@ func sumFunc(nums ...int) (result int) {
 
 // マップ
 func mapFunc() {
+	ms := map[string]int{"a": 1, "b": 3}
+	fmt.Println(ms)
+	fmt.Printf("%#v\n", ms)
+
 	var month map[int]string = map[int]string{}
 	month[1] = "January"
 	month[2] = "February"
-
 	fmt.Println(month)
 
 	// 2つ目の戻り値は指定したキーがマップに格納されているかをboolで返す
@@ -168,6 +176,12 @@ func noPointa(num int) {
 	fmt.Println("noPointa関数内:", num)
 }
 func pointa(num *int) {
-	*num = 50 // ポインタが指している変数に値をセットする
+	*num = 50                       // ポインタが指している変数に値をセットする
 	fmt.Println("pointa関数内:", *num) // ポインタが指している変数を表示
+
+	// newでゼロ値で初期化したポインタを作る
+	var p *int = new(int)
+	fmt.Println("ポインタnewで初期化", p)
+	fmt.Println("ポインタnewで初期化", *p)
+
 }
