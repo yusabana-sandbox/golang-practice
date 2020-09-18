@@ -8,6 +8,11 @@ import (
 	"os"
 )
 
+// 構造体(struct)のField名を大文字始まりにすることで別のパッケージからも person.Id などでアクセスできる
+// ここでは別パッケージから person.memo はアクセスできない
+// 更に小文字で始まるFieldはencode/decodeされない
+// Field名は大文字にしつつタグで json:"id" のようにして小文字のフィールドに対応する
+// https://qiita.com/Yarimizu14/items/e93097c4f4cfd5468259
 type Person struct {
 	Id      int    `json:"id"`
 	Name    string `json:"name"`
