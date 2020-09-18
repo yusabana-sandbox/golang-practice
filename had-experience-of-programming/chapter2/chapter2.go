@@ -68,6 +68,27 @@ func Do() {
 	// defer
 	defer fmt.Println("Deffer1で最後の処理")
 	defer fmt.Println("Deffer2で最後の処理")
+
+	doSwitch()
+}
+
+func doSwitch() {
+	var a int = 1
+	// switchのケースに直接式もかける
+	// switchは常に最初にマッチしたcaseブロックの中だけしか実行されない
+	//   ただし、fallthroughを使うことでjavaなどのような次のcaseに飛ばすことができる
+	// switch文自体を抜けるのに break は使う、通常は使わない
+	switch {
+	case a == 0:
+		fmt.Println("switch:", a+1) // 1
+		fallthrough
+	case a == 1:
+		fmt.Println("switch:", a+2) // 3
+	case a == 2:
+		fmt.Println("switch:", a+3) // 5
+	default:
+		log.Fatal("error switch")
+	}
 }
 
 func multipleReturn() (string, int, int) {
