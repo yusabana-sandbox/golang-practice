@@ -8,6 +8,6 @@ import (
 // go build cmd/fuga
 // でビルドするとfugaというコマンドができる
 func main() {
-	fmt.Println("AAAAAAAAAA FUGAAAAAAAAAAAA")
+	fmt.Println("ふがーーーーーー")
 	fuga.Run()
 }
