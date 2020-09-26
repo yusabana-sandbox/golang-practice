@@ -4,6 +4,8 @@ import (
 	"github.com/yusabana-sandbox/golang-practice/had-experience-of-programming/chapter2"
 )
 
+// go build cmd/hoge
+// でビルドするとhogeというコマンドができる
 func main() {
 	chapter2.Do()
 	//chapter3.Do()
