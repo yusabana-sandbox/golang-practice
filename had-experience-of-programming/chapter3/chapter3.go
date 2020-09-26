@@ -33,6 +33,10 @@ func Do() {
 func checks() {
 	id := 1
 	priority := 3
+
+	// 内部向け関数、関数の型の定義
+	// var checks func(id, priority int) としてから
+	// checks = func(id, priority int) {} と定義してもいい
 	var checks func(id, priority int) = func(id, priority int) {
 		fmt.Println(id + priority)
 	}

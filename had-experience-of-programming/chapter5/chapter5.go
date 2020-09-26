@@ -29,13 +29,14 @@ func doBuffer() {
 
 	go func() {
 		time.Sleep(time.Second)
-		fmt.Println(<-ch) // 1病後にデータを読み出す
+		fmt.Println(<-ch) // 1秒後にデータを読み出す
 	}()
 
+	// バッファ分はブロックされない
 	ch <- "a" // ブロックしない
 	ch <- "b" // ブロックしない
 	ch <- "c" // ブロックしない
-	ch <- "d" // 1病後にデータが読み出されるまでブロック
+	ch <- "d" // 1秒後にデータが読み出されるまでブロック
 
 	fmt.Println("ccc")
 }
@@ -47,7 +48,7 @@ func doSelect() {
 		"http://example.org",
 	}
 
-	// 1病後に値が読み出せるチャネル
+	// 1秒後に値が読み出せるチャネル
 	// time.After()関数は時間を指定するとその時間後にデータを書き込むチャネルを返す関数です
 	timeout := time.After(time.Second)
 
@@ -119,10 +120,10 @@ func getStatus(urls []string) <-chan string {
 }
 
 // getStatus改良版、バッファを使って非同期にする方法
-// いずれのごルーチンもstatusChanに値を書き込むことで終了するけど、main側の読み取り処理が遅かった場合、
+// いずれのゴルーチンもstatusChanに値を書き込むことで終了するけど、main側の読み取り処理が遅かった場合、
 // ゴルーチンはステータスの処理が終わっているのに書き込みでブロックして閉じることが出来ない。
-// この場合はstatusChanに必要な文だけのバッファをつけることでmain()の処理が遅くても、
-// チャネルに値を書き込んでゴルーチンを終了できメモリ不可を下げられる
+// この場合はstatusChanに必要な分だけのバッファをつけることでmain()の処理が遅くても、
+// チャネルに値を書き込んでゴルーチンを終了できメモリ負荷を下げられる
 func getStatusAdvanced(urls []string) <-chan string {
 	// バッファをURLの数（3）に
 	statusChan := make(chan string, len(urls))
@@ -140,7 +141,6 @@ func getStatusAdvanced(urls []string) <-chan string {
 	}
 	return statusChan
 }
-
 
 // limitというバッファ付きのチャネルを用いて、このチャネルに値が書き込める場合はゴルーチンを起動
 // ゴルーチンが終わったらlimitから値を読み出すことでゴルーチンの同時期同数を制御する
