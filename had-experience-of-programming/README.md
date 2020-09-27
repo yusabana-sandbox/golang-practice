@@ -25,3 +25,12 @@ $ go build ./cmd/fuga
 
 - fugaは以下のサンプルを実行したもの
     - [プログラミング経験者がGo言語を本格的に勉強する前に読むための本](https://www.amazon.co.jp/dp/B06XJ86BFZ)
+
+## piyoのビルド
+
+```
+$ go build ./cmd/piyo
+```
+
+- piyoは以下のサンプルを実行したもの
+    - [実践Go言語 - golang.jp](http://golang.jp/effective_go)
