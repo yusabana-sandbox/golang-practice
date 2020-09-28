@@ -257,4 +257,17 @@ func doTypeSwitch(value interface{}) {
 		fmt.Println("Value is another by TypeSwitch default")
 	}
 
+	// 以下のようにできる
+	switch t := value.(type) {
+	default:
+		fmt.Printf("unexpected type %T", t) // %Tは型を出力する
+	case bool:
+		fmt.Printf("boolean %t\n", t)
+	case int:
+		fmt.Printf("integer %d\n", t)
+	case *bool:
+		fmt.Printf("pointer to boolean %t\n", *t)
+	case *int:
+		fmt.Printf("pointer to integer %d\n", *t)
+	}
 }
