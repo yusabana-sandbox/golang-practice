@@ -3,15 +3,63 @@ package main
 import "fmt"
 
 func main() {
-	str := "hello, world!!あ"
-	vec := []byte(str)
-	fmt.Println(str)
-	fmt.Println(vec)
+	//str := "hello, world!!あ"
+	//vec := []byte(str)
+	//fmt.Println(str)
+	//fmt.Println(vec)
+	//
+	//DifferentMakeNew()
+	//
+	//Map()
+	//
+	Const()
+}
 
-	DifferentMakeNew()
+// 独自型のByteSizeの出力を単位付きで表示させるやつ
+func Const() {
+	var b0 ByteSize = 100
+	var b1 ByteSize = 10000.0
+	var b2 ByteSize = 1024
+	var b3 ByteSize = 1048576
+	var b4 ByteSize = 1 << 40
+	fmt.Println(b0, b1, b2, b3, b4) // => 100.000B 9.766KB 1.000KB 1.000MB 1.000TB
+}
 
-	Map()
+type ByteSize float64
 
+const (
+	_           = iota // 一番目の値はブランク識別子に代入して無視
+	KB ByteSize = 1 << (10 * iota)
+	MB
+	GB
+	TB
+	PB
+	EB
+	ZB
+	YB
+)
+
+// String()を上書きして出力形式を変換できる
+func (b ByteSize) String() string {
+	switch {
+	case b >= YB:
+		return fmt.Sprintf("%.3fYB", float64(b/YB))
+	case b >= ZB:
+		return fmt.Sprintf("%.3fZB", float64(b/ZB))
+	case b >= EB:
+		return fmt.Sprintf("%.3fEB", float64(b/EB))
+	case b >= PB:
+		return fmt.Sprintf("%.3fPB", float64(b/PB))
+	case b >= TB:
+		return fmt.Sprintf("%.3fTB", float64(b/TB))
+	case b >= GB:
+		return fmt.Sprintf("%.3fGB", float64(b/GB))
+	case b >= MB:
+		return fmt.Sprintf("%.3fMB", float64(b/MB))
+	case b >= KB:
+		return fmt.Sprintf("%.3fKB", float64(b/KB))
+	}
+	return fmt.Sprintf("%.3fB", float64(b))
 }
 
 func Map() {
