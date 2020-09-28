@@ -1,17 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	//str := "hello, world!!あ"
-	//vec := []byte(str)
-	//fmt.Println(str)
-	//fmt.Println(vec)
-	//
-	//DifferentMakeNew()
-	//
-	//Map()
-	//
+	str := "hello, world!!あ"
+	vec := []byte(str)
+	fmt.Println(str)
+	fmt.Println(vec)
+
+	DifferentMakeNew()
+
+	Map()
+
 	Const()
 }
 
