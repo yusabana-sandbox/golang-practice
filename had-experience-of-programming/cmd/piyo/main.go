@@ -2,23 +2,92 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+	"sort"
 )
 
 func main() {
-	str := "hello, world!!あ"
-	vec := []byte(str)
-	fmt.Println(str)
-	fmt.Println(vec)
+	//str := "hello, world!!あ"
+	//vec := []byte(str)
+	//fmt.Println(str)
+	//fmt.Println(vec)
+	//
+	//DifferentMakeNew()
+	//
+	//DoMap()
+	//
+	//DoConst()
+	//
+	//DoInterface()
 
-	DifferentMakeNew()
+	DoHttp()
+}
 
-	Map()
+func DoHttp() {
+	ctr := new(Counter)
+	http.Handle("/counter", ctr)
+	// http://127.0.0.1:8000/counter でアクセス
 
-	Const()
+	// ArgServerをhttp.HandlerFuncに型変換することでhttp.Handleに渡せるようになる
+	http.Handle("/args", http.HandlerFunc(ArgServer))
+	http.ListenAndServe(":8000", nil)
+}
+// 単純なカウントサーバ
+type Counter struct {
+	n int
+}
+// レシーバは呼び出し側にも伝わるようにポインタである必要がある
+func (ctr *Counter) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	ctr.n++
+	fmt.Fprintf(w, "カウント => %d\n", ctr.n)
+}
+// 以下のようにArgServerを定義することでHandlerFuncと同じシグネチャを持つようになったので
+// ArgServerをHandlerFunc内のメソッドを使用するためにHandlerFunc型に変換可能になった
+func ArgServer(w http.ResponseWriter, req *http.Request) {
+	for i, s := range os.Args {
+		fmt.Fprintf(w, "%d => %s", i, s)
+	}
+}
+
+
+func DoInterface() {
+	hoge := Sequence{1, 10, 33, 100, 1000, 20}
+
+	fmt.Println(hoge)
+}
+type Sequence []int
+func (s Sequence) Len() int {
+	return len(s)
+}
+func (s Sequence) Less(i, j int) bool {
+	return s[i] < s[j]
+}
+func (s Sequence) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+func (s Sequence) String() string {
+	sort.Sort(s) // Len, Less, Swap を実装しているのでsortパッケージのソートで実行できる
+	// このやり方だと簡易的にコードを軽量化できる
+	// sort.IntSlice(s).Sort() // このようなソートにすることでLen, Less, Swapを実装しなくても良い
+
+	//str := "["
+	//for i, elem := range s {
+	//	if i > 0 {
+	//		str += " "
+	//	}
+	//	str += fmt.Sprint(elem)
+	//}
+	//return str + "]"
+	//
+	// 上記のコメントアウトしている処理はSequenceを純粋な[]intのスライスに変換してSprintすることで[]intのString()によって出力できる
+	// 変換重要。変換しなければSprintはSequenceのStringメソッドを見つけ出し呼び出しを無限に行ってしまう無限ループに陥る
+	// この2つの型(Sequenceと[]int)は名前を除けば同一であるため、これらの型の間における変換は問題なく行われます。この変換では新しい値が作られることはなく、既存の値が一時的に新しい型を持つかのような働きをします。(これと異なる変換もあります。たとえば整数を浮動小数点へ変換したときは新しく値が作成されます。)
+	return fmt.Sprint([]int(s))
 }
 
 // 独自型のByteSizeの出力を単位付きで表示させるやつ
-func Const() {
+func DoConst() {
 	var b0 ByteSize = 100
 	var b1 ByteSize = 10000.0
 	var b2 ByteSize = 1024
@@ -64,7 +133,7 @@ func (b ByteSize) String() string {
 	return fmt.Sprintf("%.3fB", float64(b))
 }
 
-func Map() {
+func DoMap() {
 	var timeZone = map[string]int{
 		"UTC": 0 * 60 * 60,
 		"EST": -5 * 60 * 60,
