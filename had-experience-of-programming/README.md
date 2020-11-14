@@ -1,3 +1,13 @@
+# README
+
+
+## サンプルコード
+
+- 各chapter2 - chapter5 については以下の記事を動作させている
+  - [はじめてのGo―シンプルな言語仕様，型システム，並行処理：特集｜gihyo.jp … 技術評論社](https://gihyo.jp/dev/feature/01/go_4beginners)
+- 以下の `hoge` のmain関数の実行によって動作確認できる
+
+
 ## Usage build
 
 - 参考
